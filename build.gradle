@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
+ */
 buildscript {
 	ext {
 		springBootVersion = '1.5.10.RELEASE'
@@ -26,4 +29,22 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	runtime('org.springframework.boot:spring-boot-starter-web')
+	runtime('org.springframework.boot:spring-boot-starter-actuator')
+	runtime('org.springframework.boot:spring-boot-starter-remote-shell')
+}
+
+task hello {
+	group 'Greeting task'
+	description 'Greet you'
+
+	// configuration
+	println 'Hello from the configuration phase!'
+	ext.greeting = 'Hey, how \' it going?'
+
+	// execution phase
+	doLast { println 'hello!'}
+	doLast { println 'what\'s crackin?'}
+	doFirst { println 'Hey ,I know this guy...'}
+	doLast {println "Greeting: $greeting"}
 }
