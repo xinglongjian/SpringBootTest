@@ -1,50 +1,24 @@
-/*
- * Copyright (C) 2018 Baidu, Inc. All Rights Reserved.
- */
-buildscript {
-	ext {
-		springBootVersion = '1.5.10.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+plugins {
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
 }
-
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
 
 group = 'com.xinglongjian'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
-
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
-	runtime('org.springframework.boot:spring-boot-starter-web')
-	runtime('org.springframework.boot:spring-boot-starter-actuator')
-	runtime('org.springframework.boot:spring-boot-starter-remote-shell')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
 }
 
-task hello {
-	group 'Greeting task'
-	description 'Greet you'
-
-	// configuration
-	println 'Hello from the configuration phase!'
-	ext.greeting = 'Hey, how \' it going?'
-
-	// execution phase
-	doLast { println 'hello!'}
-	doLast { println 'what\'s crackin?'}
-	doFirst { println 'Hey ,I know this guy...'}
-	doLast {println "Greeting: $greeting"}
+test {
+    useJUnitPlatform()
 }
